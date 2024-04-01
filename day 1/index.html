@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GUESS ME</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Guess the random number</h1>
+    <p>SELECT A MODE</p>
+    <div id="modes">
+    <button id="easy">EASY</button>
+    <button id="hard">HARD</button>
+    <button id="impossible">IMPOSSIBLE</button>
+    </div>
+    <div id="main">
+    <p id="instruction"></p>
+    <input id="inn" type="number" >
+    <button id="check">CHECK</button>
+    <p id="display"></p>
+    </div>
+    
+    <button id="reset">RESET</button>
+   
+    
+</body>
+<script>
+    var entered;
+    var check = document.getElementById("check");
+    var reset = document.getElementById("reset");
+    var easy = document.getElementById("easy");
+    var hard = document.getElementById("hard");
+    var impossible = document.getElementById("impossible")
+    var min;
+    var max;
+    var guesses;
+    var random;
+
+    function randomm(min,max){
+     const random = Math.floor(Math.random()*(max-min+1)+min);
+    return random;
+    }
+
+    easy.addEventListener("click",(event)=>{
+        document.getElementById("instruction").innerText = "Enter your guess between 1 and 10 inclusive";
+        min = 1;
+        max = 10;
+        guesses = 8;
+         random = randomm(min,max);
+    })
+    hard.addEventListener("click",(event)=>{
+        document.getElementById("instruction").innerText = "Enter your guess between 1 and 69 inclusive";
+        min = 1;
+        max = 69;
+        guesses = 5;
+         random = randomm(min,max);
+         
+    })
+    impossible.addEventListener("click",(event)=>{
+        document.getElementById("instruction").innerText = "Enter your guess between 1 and 99 inclusive";
+        min = 1;
+        max = 99;
+        guesses = 2;
+         random = randomm(min,max);
+    })
+
+   
+
+
+    reset.addEventListener("click",(event)=>{
+        random = 0;
+        min = 0;
+        max = 0;
+        guesses = 0;
+        document.getElementById("instruction").innerText = "Select a mode";
+        document.getElementById("display").innerText = " ";
+    })
+    check.addEventListener("click",()=>{
+        entered = document.getElementById("inn").value;
+            if (guesses === undefined) {
+                document.getElementById("display").innerText = "Select a difficulty first!";
+                return; 
+            }
+            if(guesses == 0){
+                
+                document.getElementById("display").innerText = "you have 0 guesses left, try again"
+            }
+            else if(entered == random && guesses!=0){
+                
+            document.getElementById("display").innerText = "congratz you got the number";
+            }
+            else if (entered < random && guesses!=0){
+                
+            document.getElementById("display").innerText = "enter a bigger number, you have " + (guesses-1)+ " guesses remaining";
+            }
+            else if (entered > random && guesses!=0){
+                
+            document.getElementById("display").innerText = "enter a smaller number, you have " + (guesses-1) + " guesses remaining";
+            }
+            guesses --;
+        }
+        
+        )
+            
+    
+</script>
+</html>
